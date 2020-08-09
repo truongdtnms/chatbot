@@ -1,0 +1,206 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- toi_la_bot
+- chao_hoi
+- tam_biet
+- cam_on
+- mua:
+    triggers: action_buy
+- ban
+- thue:
+    triggers: action_rent
+- cho_thue
+- quang_cao
+- bao_gia:
+    triggers: action_bao_gia
+- lien_he_bds:
+    triggers: action_notify
+- ask_lottery
+- ask_exchange_rate
+- ask_remind_call
+- get_started:
+    triggers: action_greeting
+- human_reply:
+    triggers: action_human_reply
+- active_bot_agent:
+    triggers: action_active_bot_agent
+- show_menu:
+    triggers: action_show_menu
+- quick_reply:
+    triggers: action_quick_reply
+- carousel:
+    triggers: action_carousel
+- EXTERNAL_reminder:
+    triggers: action_react_to_reminder
+- ask_id:
+    triggers: action_tell_id
+- EXTERNAL_dry_plant:
+    triggers: action_warn_dry
+- pause:
+    triggers: action_pause
+- resume:
+    triggers: action_resume
+- intent_set_language:
+    triggers: action_set_language
+- intent_user_name
+- intent_user_email
+- intent_user_phone
+- user:
+    triggers: user_form
+entities:
+- type_ad
+- name
+- ngay
+- ty_gia
+- user_email
+- user_name
+- user_phone
+- language
+slots:
+  language:
+    type: categorical
+    values:
+    - en
+    - vi
+    - human
+  ngay:
+    type: text
+  ty_gia:
+    type: text
+  type_ad:
+    type: categorical
+    values:
+    - tin
+    - banner
+  user_email:
+    type: unfeaturized
+    auto_fill: false
+  user_name:
+    type: unfeaturized
+    auto_fill: false
+  user_phone:
+    type: unfeaturized
+    auto_fill: false
+responses:
+  utter_ask_user_name:
+  - text: Tên đầy đủ của bạn là gì?
+  utter_ask_user_email:
+  - text: Email của bạn là gì?
+  utter_ask_user_phone:
+  - text: Số điện thoại của bạn là gì?
+  utter_get_started:
+  - text: Xin chào anh/chị, xin vui lòng cung cấp số điện thoại
+  utter_default:
+  - text: Xin lỗi tôi không hiểu. Tôi chỉ có thể hỗ trợ bạn về các thông tin bất động
+      sản và quảng cáo trên trang batdongsan.com.vn
+  - text: Xin lỗi câu hỏi nằm ngoài khả năng của tôi. Bạn có thể hỏi tôi về các thông
+      tin bất động sản và quảng cáo trên trang batdongsan.com.vn
+  utter_toi_la_bot:
+  - text: Tôi là chatbot hỗ trợ của batdongsan.com.vn, rất vui khi được hỗ trợ bạn
+  utter_chao_hoi:
+  - text: Xin chào, rất vui được hỗ trợ bạn
+  - text: Xin chào, tôi có thể giúp gì cho bạn không?
+  - text: Chào bạn, tôi có thể giúp gì không?
+  - text: Chào bạn, rất vui khi được hỗ trợ
+  utter_tam_biet:
+  - text: Chào bạn, rất vui khi đã hỗ trợ bạn
+  - text: Tạm biệt, hẹn gặp lại bạn lần sau
+  utter_cam_on:
+  - text: Không có gì, đây là nhiệm vụ của tôi
+  - text: Đây là nhiệm vụ của tôi, thật vui khi được hỗ trợ bạn
+  utter_mua:
+  - text: Dưới đây là một số gợi ý cho bạn👇
+  utter_ban:
+  - text: Bạn cần đăng ký tài khoản
+  utter_quang_cao_all:
+  - buttons:
+    - payload: '/bao_gia{"type_ad": "tin"}'
+      title: Xem báo giá tin đăng
+    - payload: '/bao_gia{"type_ad": "banner"}'
+      title: Xem báo giá banner
+    - payload: /lien_he_bds
+      title: Liên hệ quảng cáo
+    text: Bạn muốn liên hệ quảng cáo hay xem báo giá?
+  utter_quang_cao_tin:
+  - buttons:
+    - payload: '/bao_gia{"type_ad": "tin"}'
+      title: Xem báo giá tin đăng
+    - payload: /lien_he_bds
+      title: Liên hệ quảng cáo
+    text: Bạn muốn liên hệ quảng cáo hay xem báo giá tin đăng?
+  utter_quang_cao_banner:
+  - buttons:
+    - payload: '/bao_gia{"type_ad": "banner"}'
+      title: Xem báo giá banner
+    - payload: /lien_he_bds
+      title: Liên hệ quảng cáo
+    text: Bạn muốn liên hệ quảng cáo hay xem báo giá banner?
+  utter_bao_gia_all:
+  - buttons:
+    - payload: '/bao_gia{"type_ad": "tin"}'
+      title: Xem báo giá tin đăng
+    - payload: '/bao_gia{"type_ad": "banner"}'
+      title: Xem báo giá banner
+    text: Bạn cần báo giá tin đăng hay báo giá banner?
+  utter_bao_gia_tin:
+  - text: Đây là bảng báo giá cho tin đăng
+  utter_bao_gia_banner:
+  - text: Đây là bảng báo giá cho banner
+  utter_lien_he_bds:
+  - text: Vui lòng chờ trong giây lát, nhân viên của batdongsan.com.vn sẽ hỗ trợ bạn
+  utter_set_language:
+  - buttons:
+    - payload: '/intent_set_language{"language": "vi"}'
+      title: Tiếng Việt
+    - payload: '/intent_set_language{"language": "en"}'
+      title: English
+    text: Language?
+actions:
+- utter_toi_la_bot
+- utter_chao_hoi
+- utter_tam_biet
+- utter_cam_on
+- utter_mua
+- utter_ban
+- utter_thue
+- utter_cho_thue
+- utter_quang_cao_all
+- utter_quang_cao_tin
+- utter_quang_cao_banner
+- utter_bao_gia_all
+- utter_bao_gia_tin
+- utter_bao_gia_banner
+- utter_lien_he_bds
+- utter_default
+- action_quang_cao
+- action_bao_gia
+- action_set_reminder
+- action_react_to_reminder
+- action_tell_id
+- action_warn_dry
+- action_resume
+- action_pause
+- action_get_lottery
+- action_get_exchange_rate
+- action_session_start
+- action_carousel
+- utter_get_started
+- action_quick_reply
+- action_show_menu
+- action_bao_gia_banner
+- action_bao_gia_tin_dang
+- action_notify
+- action_human_reply
+- action_buy
+- action_rent
+- action_greeting
+- action_active_bot_agent
+- action_set_language
+- utter_set_language
+- utter_ask_user_name
+- utter_ask_user_email
+- utter_ask_user_phone
+forms:
+- user_form

@@ -1,0 +1,20 @@
+<html>
+<header>
+</header>
+<body>
+<div id="webchat"></div>
+<script src="https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js"></script>
+<script>
+  WebChat.default.init({
+    selector: "#webchat",
+    initPayload: "/get_started",
+    customData: {"language": "en"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+    socketUrl: "http://localhost:5005",
+    socketPath: "/socket.io/",
+    title: "Demo RASAWebchat",
+    subtitle: "Demo RASA-Webchat",
+    params: {"storage": "session"} // can be set to "local"  or "session". details in storage section.
+  })
+</script>
+</body>
+</html>

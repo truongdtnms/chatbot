@@ -1,0 +1,2 @@
+email|username|password
+bot@nms.com.vn|bot1|Password@bot1

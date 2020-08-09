@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Web integrate msg</title>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script id="script">
+            window.fbAsyncInit = function(){
+            FB.init({
+                xfbml: true,
+                version: 'v7.0'
+                });
+            };
+            (function(d, s, id) {
+                var js, fjs = d.getElementById(s);
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="fb-customerchat" page_id="103510121450705" attribution="setup_tool"></div>
+    </body>
+</html>
