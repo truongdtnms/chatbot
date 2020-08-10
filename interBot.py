@@ -33,8 +33,8 @@ rasa_channel_id = None
 rasa_conversation_id = None
 rasa_url = 'http://localhost:5005'
 
-ADMIN_ID = '7ey16tgu1jbyp8pdzuiwphohao'
-WORKER_ID = '7ao9ctoga7g9fxxwj3fes86r4o'
+# ADMIN_ID = '7ey16tgu1jbyp8pdzuiwphohao'
+WORKER_ID = '1zjzwt9p8byyzboifazc87p1tr'
 
 logger = logging.getLogger(__name__)
 
@@ -209,7 +209,7 @@ class MessageDispatcher(object):
             # logger.info("----------" + str(msg))
             _user = mm_members[msg['data']['post']['user_id']]
             # logger.info("----------" + str(_user))
-            if (_user['username']) == 'bot1':
+            if (_user['username']) == 'bot':
                 _text = self.get_message(msg)
                 try:
                     data = json.loads(_text)
@@ -241,6 +241,7 @@ class MessageDispatcher(object):
                                 # logger.info('----user_id: ' + str(user['user_id']))
                                 # logger.info('----map: ' + str(map))
                                 channel_id = self._client.api.create_direct_message_channel(WORKER_ID, user['user_id'])
+                                global channels_names
                                 map.append({
                                     "user_id": user['user_id'],
                                     "channel_id": channel_id,
@@ -460,6 +461,10 @@ class MCAPI(MattermostAPI):
         :return: channel id for direct message between user1 and user2
         """
         tmp = self.post('/channels/direct',[user_id1, user_id2])['id']
+        channel = self.get('channels/{}'.format(tmp))
+        global channels_names
+        if tmp not in [channel_id for channel_id in channels_names]:
+            channels_names[tmp] = user_id2
         return tmp
 
 
@@ -493,14 +498,14 @@ class MC(MattermostClient):
         """
         team_id = self.api.get_team_by_name("rasabot")["id"]
         # logger.info("-----team_id:" + str(team_id))
-        channel_sp_desk_id = self.api.get_channel_by_name("support_desk", team_id)["id"]
+        channel_sp_desk_id = self.api.get_channel_by_name("help_desk", team_id)["id"]
         # logger.info("------channel_id:"+channel_sp_desk_id)
         users = self.api.get_all_users_in_channel(channel_sp_desk_id)
         rs = []
         # logger.info('--------'+str(users))
         for user in users:
             user_id = user["user_id"]
-            if user_id in [ADMIN_ID, WORKER_ID]:
+            if user_id in [WORKER_ID,]:
                 continue
             status = self.api.get_user_status(user_id)["status"]
             rs.append({"user_id": user_id, "status": status})
@@ -525,6 +530,10 @@ class InterBot(object):
             BOT_LOGIN, BOT_PASSWORD,
             settings.SSL_VERIFY, settings.BOT_TOKEN,
             settings.WS_ORIGIN)
+        global WORKER_ID
+        WORKER_ID = self._client.user['id'] if self._client.user['id'] else None
+
+        logger.info('worker_id: ' + str(WORKER_ID))
         logger.info('connected to mattermost')
         self.load_initial_data()
         self._dispatcher = MessageDispatcher(self._client)

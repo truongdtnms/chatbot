@@ -176,6 +176,7 @@
 ## intent:ask_id
 - id
 - what's id?
+- what's id ?
 
 ## intent:ask_lottery
 - Cho anh xem kết quả đê
@@ -188,6 +189,7 @@
 - ngày [20](ngay)
 - ngày [31](ngay)
 - ngày [1](ngay)
+- kết quả ngày [14](ngay)
 
 ## intent:ask_exchange_rate
 - tỷ giá đồng [EUR](ty_gia)
@@ -217,3 +219,11 @@
 - [0339455254](user_phone)
 - [0358515455](user_phone)
 
+## synonym:banner
+- hình ảnh
+
+## synonym:tin
+- tin rao
+- tin đăng
+- bài
+- bài đăng
